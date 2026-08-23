@@ -16,16 +16,25 @@ const About = () => {
       {/* Main Story Section */}
       <div className='my-10 flex flex-col md:flex-row gap-12 items-center'>
           <div className='w-full md:w-1/2 overflow-hidden rounded-sm border border-[#E8E2DC] bg-[#FAF6F0]'>
-            <img className='w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700' src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80" alt="Kraft Studio Artisan Creation" />
+            <img className='w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700' src={assets.banner_img} alt="Kraft Studio Artisan Creation" />
           </div>
 
           <div className='flex flex-col justify-center gap-6 md:w-1/2 text-gray-700 leading-relaxed text-sm sm:text-base'>
               <h2 className="font-cormorant text-3xl font-bold text-[#2C2523]">Crafted with Heart in the Heart of India</h2>
               <p>
-                Kraft Studio was born from a deep appreciation for the timeless art of handwoven creations. In an age of mass manufacturing, we set out to preserve the soul of handcrafted art by connecting master Indian artisans with homes around the world.
+                Hi, I am Bhanvi Jain, the hands behind Kraft Studio.
               </p>
               <p>
-                Each piece in our collection — from delicate everlasting crochet roses and tulips to intricately knotted macrame wall hangings — is handmade using traditional techniques passed down through generations.
+                What started with a love for crafting and gifting since childhood has now grown into Kraft Studio. I didn't start this with a business plan but only for the joy of making something with my own hands and watching it turn into something beautiful. Somewhere between choosing the right paper, wrapping a box just so, and figuring out how to make a simple gift feel like it was made only for one person, I realized this wasn't just a hobby anymore. It had become a part of how I see the world.
+              </p>
+              <p>
+                Over time, working closely with crafting, packaging, gifting, and styling taught me so much that the smallest details are never really small. The fold of a ribbon. The five extra minutes spent making sure something looks as good as it feels to give. That's where the real emotion of a gift lives, and that's what I chase, every single time.
+              </p>
+              <p>
+                Kraft Studio grew out of that chasing. It's where my design sensibility, my creativity, and years of hands-on experience come together. A little seen. A little cared for. A little more special than an ordinary day.
+              </p>
+              <p>
+                That's the moment I try to hold in my hands with every piece that leaves Kraft Studio. I hope you feel it too.
               </p>
               <div className='p-6 bg-[#FAF6F0] border-l-4 border-[#43281C] rounded-r-sm space-y-2'>
                 <h3 className="font-cormorant text-xl font-bold text-[#2C2523]">Our Artisan Mission</h3>

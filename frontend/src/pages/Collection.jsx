@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import ProductItem from '../components/ProductItem'
+import { assets } from '../assets/assets'
 
 const Collection = () => {
     const { products, search, showSearch } = useContext(ShopContext);
@@ -56,7 +57,7 @@ const Collection = () => {
             <div className='relative w-full h-[360px] sm:h-[440px] overflow-hidden bg-[#3D2518] flex items-center justify-center'>
                 {/* Banner Background Image */}
                 <img 
-                    src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=1600&q=80" 
+                    src={assets.banner_img}
                     alt="Handcrafted Crochet Tulips Collection" 
                     className="absolute inset-0 w-full h-full object-cover object-center opacity-70 filter brightness-[0.85]"
                 />

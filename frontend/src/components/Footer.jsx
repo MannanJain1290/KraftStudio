@@ -44,12 +44,12 @@ const Footer = () => {
                     </h4>
                     <ul className='space-y-2 text-gray-600'>
                         <li>Crafted in India 🇮🇳</li>
-                        <li>support@kraftstudio.in</li>
-                        <li>+91 98765 43210</li>
+                        <li>bhanvijain06@gmail.com</li>
+                        <li>+91 9873294894</li>
                         <li className='pt-2 flex gap-3 text-gray-700'>
-                            <span className='hover:text-[#8B5A2B] cursor-pointer'>Instagram</span>
+                            <a href="https://www.instagram.com/kraftstudio_bhanvi?igsi=MWRkcDQ4eXp5N2sxNg%3D%3D&utm_source=qr" className='hover:text-[#8B5A2B] cursor-pointer'>Instagram</a>
                             <span>•</span>
-                            <span className='hover:text-[#8B5A2B] cursor-pointer'>Pinterest</span>
+                            <a href="https://www.facebook.com/profile.php?id=61551340771994" className='hover:text-[#8B5A2B] cursor-pointer'>Facebook</a>
                         </li>
                     </ul>
                 </div>
