@@ -28,21 +28,15 @@ const Navbar = () => {
             </div>
 
             {/* Main Header */}
-            <div className='max-w-7xl mx-auto px-4 sm:px-8 h-18 py-3 flex items-center justify-between'>
+            <div className='max-w-7xl mx-auto px-4 sm:px-8 py-1 flex items-center justify-between'>
                 
                 {/* Brand Logo */}
-                <Link to='/' className='flex items-center gap-2.5 group'>
-                    <div className='w-9 h-9 rounded-full bg-[#2E6B47] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform'>
-                        {/* Crochet / Yarn Ball SVG Icon */}
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9m-4.5-9a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M8 8l8 8" />
-                        </svg>
-                    </div>
-                    <span className="font-cormorant text-2xl sm:text-3xl font-bold tracking-tight text-[#2C2523]">
-                        Kraft Studio
-                    </span>
+                <Link to='/' className='flex items-center group'>
+                    <img 
+                        src={assets.ks_logo} 
+                        alt="Kraft Studio" 
+                        className='h-16 sm:h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-300'
+                    />
                 </Link>
 
                 {/* Navigation Links (Desktop) */}
@@ -167,8 +161,8 @@ const Navbar = () => {
             {/* Mobile Sidebar Navigation */}
             <div className={`fixed top-0 right-0 bottom-0 z-50 bg-white transition-all duration-300 shadow-2xl ${visible ? 'w-4/5 max-w-xs' : 'w-0 overflow-hidden'}`}>
                 <div className='flex flex-col text-gray-700 h-full'>
-                    <div onClick={() => setVisible(false)} className='flex items-center justify-between p-5 border-b border-[#E8E2DC] bg-[#FAF6F0] cursor-pointer'>
-                        <span className="font-cormorant text-xl font-bold text-[#2C2523]">Kraft Studio</span>
+                    <div onClick={() => setVisible(false)} className='flex items-center justify-between p-4 border-b border-[#E8E2DC] bg-[#FAF6F0] cursor-pointer'>
+                        <img src={assets.ks_logo} alt="Kraft Studio" className='h-14 w-auto object-contain' />
                         <svg className='w-5 h-5 text-gray-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M6 18L18 6M6 6l12 12' />
                         </svg>

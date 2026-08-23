@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext';
+import { assets } from '../assets/assets';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -53,14 +54,8 @@ const Login = () => {
 
         {/* Header */}
         <div className='text-center mb-8'>
-          {/* Brand Icon */}
-          <div className='w-12 h-12 rounded-full bg-[#2E6B47] flex items-center justify-center mx-auto mb-4 shadow-sm'>
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9m-4.5-9a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M8 8l8 8" />
-            </svg>
-          </div>
+          {/* Brand Logo */}
+          <img src={assets.ks_logo} alt="Kraft Studio" className='h-16 w-auto mx-auto mb-4 object-contain' />
           <h1 className='font-cormorant text-3xl sm:text-4xl font-bold text-[#2C2523]'>
             {currentState === 'Login' ? 'Welcome Back' : 'Join Kraft Studio'}
           </h1>
