@@ -1,0 +1,11 @@
+{
+  "name": "kraft-studio-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix frontend -- --host",
+    "dev:frontend": "npm run dev --prefix frontend -- --host",
+    "dev:backend": "npm run dev --prefix backend",
+    "build": "npm run build --prefix frontend"
+  }
+}

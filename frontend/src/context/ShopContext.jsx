@@ -2,53 +2,50 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { products as defaultProducts } from "../assets/assets";
 
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
 
-    const currency = '$';
-    const delivery_fee = 10;
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const currency = 'Rs. ';
+    const delivery_fee = 50;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
-    const [products, setProducts] = useState([]);
-    const [token, setToken] = useState('')
+    const [products, setProducts] = useState(defaultProducts);
+    const [token, setToken] = useState('');
     const navigate = useNavigate();
 
 
-    const addToCart = async (itemId, size) => {
+    const addToCart = async (itemId, size = 'Default') => {
 
-        if (!size) {
-            toast.error('Select Product Size');
-            return;
-        }
+        let selectedSize = size || 'Default';
 
         let cartData = structuredClone(cartItems);
 
         if (cartData[itemId]) {
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += 1;
+            if (cartData[itemId][selectedSize]) {
+                cartData[itemId][selectedSize] += 1;
             }
             else {
-                cartData[itemId][size] = 1;
+                cartData[itemId][selectedSize] = 1;
             }
         }
         else {
             cartData[itemId] = {};
-            cartData[itemId][size] = 1;
+            cartData[itemId][selectedSize] = 1;
         }
         setCartItems(cartData);
 
-        if (token) {
+        toast.success('Added to bag!');
+
+        if (token && backendUrl) {
             try {
-
-                await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
-
+                await axios.post(backendUrl + '/api/cart/add', { itemId, size: selectedSize }, { headers: { token } })
             } catch (error) {
                 console.log(error)
-                toast.error(error.message)
             }
         }
 
@@ -78,14 +75,13 @@ const ShopContextProvider = (props) => {
 
         setCartItems(cartData)
 
-        if (token) {
+        if (token && backendUrl) {
             try {
 
                 await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } })
 
             } catch (error) {
                 console.log(error)
-                toast.error(error.message)
             }
         }
 
@@ -95,6 +91,7 @@ const ShopContextProvider = (props) => {
         let totalAmount = 0;
         for (const items in cartItems) {
             let itemInfo = products.find((product) => product._id === items);
+            if (!itemInfo) continue;
             for (const item in cartItems[items]) {
                 try {
                     if (cartItems[items][item] > 0) {
@@ -109,31 +106,26 @@ const ShopContextProvider = (props) => {
     }
 
     const getProductsData = async () => {
+        if (!backendUrl) return;
         try {
-
             const response = await axios.get(backendUrl + '/api/product/list')
-            if (response.data.success) {
+            if (response.data.success && response.data.products?.length > 0) {
                 setProducts(response.data.products.reverse())
-            } else {
-                toast.error(response.data.message)
             }
-
         } catch (error) {
-            console.log(error)
-            toast.error(error.message)
+            console.log("Backend offline, using default local products")
         }
     }
 
     const getUserCart = async ( token ) => {
+        if (!backendUrl) return;
         try {
-            
             const response = await axios.post(backendUrl + '/api/cart/get',{},{headers:{token}})
             if (response.data.success) {
                 setCartItems(response.data.cartData)
             }
         } catch (error) {
             console.log(error)
-            toast.error(error.message)
         }
     }
 

@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react'
-import {assets} from '../assets/assets'
-import { Link, NavLink } from 'react-router-dom'
+import { assets } from '../assets/assets'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
-
-    const [visible,setVisible] = useState(false);
-
-    const {setShowSearch , getCartCount , navigate, token, setToken, setCartItems} = useContext(ShopContext);
+    const [visible, setVisible] = useState(false);
+    const [showShopDropdown, setShowShopDropdown] = useState(false);
+    const [showCraftDropdown, setShowCraftDropdown] = useState(false);
+    const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
+    const location = useLocation();
 
     const logout = () => {
         navigate('/login')
@@ -16,70 +17,172 @@ const Navbar = () => {
         setCartItems({})
     }
 
-  return (
-    <div className='flex items-center justify-between py-5 font-medium'>
-      
-      <Link to='/'><img src={assets.logo} className='w-36' alt="" /></Link>
+    return (
+        <header className='w-full sticky top-0 z-50 bg-white border-b border-[#E8E2DC] shadow-sm'>
+            {/* Top Announcement Bar */}
+            <div className='bg-[#43281C] text-[#F9F6F0] py-2 px-4 text-center text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-2 border-b border-[#341F16]'>
+                <span className='text-[#E6C594] text-sm'>✨</span>
+                <span>Handcrafted with Love — Free Shipping on Orders Above ₹999 | </span>
+                <Link to='/collection' className='underline underline-offset-4 decoration-[#E6C594] hover:text-[#E6C594] transition-colors font-semibold'>Shop Now</Link>
+                <span className='text-[#E6C594] text-sm'>✨</span>
+            </div>
 
-      <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
-        
-        <NavLink to='/' className='flex flex-col items-center gap-1'>
-            <p>HOME</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-        <NavLink to='/collection' className='flex flex-col items-center gap-1'>
-            <p>COLLECTION</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-        <NavLink to='/about' className='flex flex-col items-center gap-1'>
-            <p>ABOUT</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-        <NavLink to='/contact' className='flex flex-col items-center gap-1'>
-            <p>CONTACT</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-
-      </ul>
-
-      <div className='flex items-center gap-6'>
-            <img onClick={()=> { setShowSearch(true); navigate('/collection') }} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
-            
-            <div className='group relative'>
-                <img onClick={()=> token ? null : navigate('/login') } className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
-                {/* Dropdown Menu */}
-                {token && 
-                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                    <div className='flex flex-col gap-2 w-36 py-3 px-5  bg-slate-100 text-gray-500 rounded'>
-                        <p className='cursor-pointer hover:text-black'>My Profile</p>
-                        <p onClick={()=>navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
-                        <p onClick={logout} className='cursor-pointer hover:text-black'>Logout</p>
+            {/* Main Header */}
+            <div className='max-w-7xl mx-auto px-4 sm:px-8 h-18 py-3 flex items-center justify-between'>
+                
+                {/* Brand Logo */}
+                <Link to='/' className='flex items-center gap-2.5 group'>
+                    <div className='w-9 h-9 rounded-full bg-[#2E6B47] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform'>
+                        {/* Crochet / Yarn Ball SVG Icon */}
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9m-4.5-9a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M8 8l8 8" />
+                        </svg>
                     </div>
-                </div>}
-            </div> 
-            <Link to='/cart' className='relative'>
-                <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
-                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartCount()}</p>
-            </Link> 
-            <img onClick={()=>setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="" /> 
-      </div>
+                    <span className="font-cormorant text-2xl sm:text-3xl font-bold tracking-tight text-[#2C2523]">
+                        Kraft Studio
+                    </span>
+                </Link>
 
-        {/* Sidebar menu for small screens */}
-        <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
-                <div className='flex flex-col text-gray-600'>
-                    <div onClick={()=>setVisible(false)} className='flex items-center gap-4 p-3 cursor-pointer'>
-                        <img className='h-4 rotate-180' src={assets.dropdown_icon} alt="" />
-                        <p>Back</p>
+                {/* Navigation Links (Desktop) */}
+                <nav className='hidden md:flex items-center gap-8 text-[15px] font-lora text-[#383230]'>
+                    
+                    <NavLink to='/about' className='hover:text-[#8B5A2B] transition-colors py-1'>
+                        Our Story
+                    </NavLink>
+
+                    {/* Shop Dropdown */}
+                    <div className='relative' onMouseEnter={() => setShowShopDropdown(true)} onMouseLeave={() => setShowShopDropdown(false)}>
+                        <NavLink to='/collection' className='flex items-center gap-1 hover:text-[#8B5A2B] transition-colors py-1'>
+                            <span>Shop</span>
+                            <svg className='w-3.5 h-3.5 opacity-70' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7' />
+                            </svg>
+                        </NavLink>
+
+                        {showShopDropdown && (
+                            <div className='absolute top-full left-0 w-52 bg-white border border-[#E8E2DC] shadow-lg rounded-sm py-2 z-50 text-sm animate-fadeIn'>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>All Handmade Items</Link>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>Crochet Flowers</Link>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>Macrame Wall Hangings</Link>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>Embroidered Cushions</Link>
+                            </div>
+                        )}
                     </div>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/'>HOME</NavLink>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/collection'>COLLECTION</NavLink>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/about'>ABOUT</NavLink>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/contact'>CONTACT</NavLink>
+
+                    {/* Craft Collection Dropdown (Active tab in screenshot) */}
+                    <div className='relative' onMouseEnter={() => setShowCraftDropdown(true)} onMouseLeave={() => setShowCraftDropdown(false)}>
+                        <NavLink 
+                            to='/collection' 
+                            className={`flex items-center gap-1.5 py-1 relative font-medium transition-colors ${
+                                location.pathname === '/collection' || location.pathname === '/' 
+                                    ? 'text-[#2C2523] border-b-2 border-[#43281C]' 
+                                    : 'hover:text-[#8B5A2B]'
+                            }`}
+                        >
+                            <span>Craft Collection</span>
+                            <svg className='w-3.5 h-3.5 opacity-70' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7' />
+                            </svg>
+                        </NavLink>
+
+                        {showCraftDropdown && (
+                            <div className='absolute top-full left-0 w-56 bg-white border border-[#E8E2DC] shadow-lg rounded-sm py-2 z-50 text-sm animate-fadeIn'>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B] font-medium text-[#43281C]'>Handcrafted Collection</Link>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>Artisanal Tulips & Roses</Link>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>Boho Macrame Decor</Link>
+                                <Link to='/collection' className='block px-4 py-2 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]'>Indian Artisan Gifts</Link>
+                            </div>
+                        )}
+                    </div>
+
+                    <NavLink to='/contact' className='hover:text-[#8B5A2B] transition-colors py-1'>
+                        Thoughtful Gifts
+                    </NavLink>
+                </nav>
+
+                {/* Header Action Icons */}
+                <div className='flex items-center gap-5 sm:gap-6'>
+                    {/* Search Icon */}
+                    <button 
+                        onClick={() => { setShowSearch(true); navigate('/collection'); }}
+                        className='p-1.5 text-[#383230] hover:text-[#8B5A2B] transition-colors rounded-full hover:bg-[#FAF6F0]'
+                        aria-label="Search"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+
+                    {/* User Profile */}
+                    <div className='group relative'>
+                        <button 
+                            onClick={() => token ? null : navigate('/login')}
+                            className='p-1.5 text-[#383230] hover:text-[#8B5A2B] transition-colors rounded-full hover:bg-[#FAF6F0]'
+                            aria-label="User Account"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </button>
+                        
+                        {token && (
+                            <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-3 z-50'>
+                                <div className='flex flex-col gap-1.5 w-40 py-2.5 px-4 bg-white border border-[#E8E2DC] shadow-lg rounded-sm text-sm text-gray-700'>
+                                    <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-[#8B5A2B] py-1'>My Profile</p>
+                                    <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-[#8B5A2B] py-1'>Orders</p>
+                                    <hr className='border-[#E8E2DC] my-1' />
+                                    <p onClick={logout} className='cursor-pointer text-red-600 hover:text-red-700 py-1'>Logout</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Shopping Bag Icon with Badge */}
+                    <Link to='/cart' className='relative p-1.5 text-[#383230] hover:text-[#8B5A2B] transition-colors rounded-full hover:bg-[#FAF6F0]'>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        {getCartCount() > 0 && (
+                            <span className='absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#43281C] text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm'>
+                                {getCartCount()}
+                            </span>
+                        )}
+                    </Link>
+
+                    {/* Mobile Menu Icon */}
+                    <button 
+                        onClick={() => setVisible(true)}
+                        className='p-1.5 text-[#383230] hover:text-[#8B5A2B] md:hidden'
+                        aria-label="Menu"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
-        </div>
+            </div>
 
-    </div>
-  )
+            {/* Mobile Sidebar Navigation */}
+            <div className={`fixed top-0 right-0 bottom-0 z-50 bg-white transition-all duration-300 shadow-2xl ${visible ? 'w-4/5 max-w-xs' : 'w-0 overflow-hidden'}`}>
+                <div className='flex flex-col text-gray-700 h-full'>
+                    <div onClick={() => setVisible(false)} className='flex items-center justify-between p-5 border-b border-[#E8E2DC] bg-[#FAF6F0] cursor-pointer'>
+                        <span className="font-cormorant text-xl font-bold text-[#2C2523]">Kraft Studio</span>
+                        <svg className='w-5 h-5 text-gray-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M6 18L18 6M6 6l12 12' />
+                        </svg>
+                    </div>
+                    <div className='flex flex-col py-4 font-lora text-base'>
+                        <NavLink onClick={() => setVisible(false)} className='py-3 px-6 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]' to='/'>Home</NavLink>
+                        <NavLink onClick={() => setVisible(false)} className='py-3 px-6 hover:bg-[#FAF6F0] hover:text-[#8B5A2B] font-semibold text-[#43281C]' to='/collection'>Craft Collection</NavLink>
+                        <NavLink onClick={() => setVisible(false)} className='py-3 px-6 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]' to='/about'>Our Story</NavLink>
+                        <NavLink onClick={() => setVisible(false)} className='py-3 px-6 hover:bg-[#FAF6F0] hover:text-[#8B5A2B]' to='/contact'>Thoughtful Gifts</NavLink>
+                    </div>
+                </div>
+            </div>
+        </header>
+    )
 }
 
 export default Navbar
