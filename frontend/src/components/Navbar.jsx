@@ -20,11 +20,9 @@ const Navbar = () => {
     return (
         <header className='w-full sticky top-0 z-50 bg-white border-b border-[#E8E2DC] shadow-sm'>
             {/* Top Announcement Bar */}
-            <div className='bg-[#43281C] text-[#F9F6F0] py-2 px-4 text-center text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-2 border-b border-[#341F16]'>
-                <span className='text-[#E6C594] text-sm'>✨</span>
+            <div className='bg-[#A2B07B] text-[#000000] py-2 px-4 text-center text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-2 border-b border-[#341F16]'>
                 <span>Handcrafted with Love — Free Shipping on Orders Above ₹999 | </span>
-                <Link to='/collection' className='underline underline-offset-4 decoration-[#E6C594] hover:text-[#E6C594] transition-colors font-semibold'>Shop Now</Link>
-                <span className='text-[#E6C594] text-sm'>✨</span>
+                <Link to='/collection' className='underline underline-offset-4 decoration-[#E6C594] hover:text-[#890B23] transition-colors font-semibold'>Shop Now</Link>
             </div>
 
             {/* Main Header */}

@@ -54,17 +54,17 @@ const Collection = () => {
         <div className='w-full bg-white pb-20'>
             
             {/* Hero Collection Banner */}
-            <div className='relative w-full h-[360px] sm:h-[440px] overflow-hidden bg-[#3D2518] flex items-center justify-center'>
+            <div className='relative w-full h-[360px] sm:h-[440px] overflow-hidden bg-[#3D2518] flex items-center justify-start px-8 md:px-16 lg:px-24'>
                 {/* Banner Background Image */}
                 <img 
                     src={assets.banner_img}
                     alt="Handcrafted Crochet Tulips Collection" 
                     className="absolute inset-0 w-full h-full object-cover object-center opacity-70 filter brightness-[0.85]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/25 to-black/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-white/30" />
                 
                 {/* Overlaid Banner Text */}
-                <div className='relative z-10 text-center px-4 max-w-3xl mx-auto'>
+                <div className='relative z-10 text-left max-w-2xl'>
                     <h1 className="font-cormorant text-4xl sm:text-5xl md:text-6xl font-normal text-white tracking-tight drop-shadow-md mb-3">
                         Handcrafted Collection
                     </h1>
